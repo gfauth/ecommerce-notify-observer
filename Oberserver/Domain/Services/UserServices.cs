@@ -1,4 +1,5 @@
-﻿using Oberserver.Data.Entities;
+﻿using Oberserver.Constants;
+using Oberserver.Data.Entities;
 using Oberserver.Data.Interfaces;
 using Oberserver.Domain.Interfaces;
 using Oberserver.Presentation.Models.Requests;
@@ -22,25 +23,44 @@ namespace Oberserver.Domain.Services
 
             var result = await _userRepository.InsertUser(userData);
 
+            if (result is not null && result?.Id <= 0)
+                return UserResponseErrors.CreateUserError;
+
+            return new UserResponse(HttpStatusCode.Created, $"Usuário {user.Name} criado com sucesso.", result!);
+        }
+
+        public async Task<UserResponse> RetrieveUser(int userId)
+        {
+            var result = await _userRepository.SelectUser(userId);
+
+            if (result is null)
+                return UserResponseErrors.UserNotFound;
+
+            var user = new UsersEnvelope(result);
+
+            return new UserResponse(HttpStatusCode.OK, $"Usuário recuperado com sucesso.", user);
+        }
+
+        public async Task<UserResponse> DeleteUser(int userId)
+        {
+            var result = await _userRepository.DeleteUser(userId);
+
             if (!result)
-                return new UserResponse(HttpStatusCode.InternalServerError, "Ocorreu um erro durante a criação do usuário.");
+                return UserResponseErrors.UserNotFound;
 
-            return new UserResponse(HttpStatusCode.Created, $"Usuário {user.Name} criado com sucesso.");
+            return new UserResponse(HttpStatusCode.OK, $"Usuário {userId} foi deletado com sucesso.");
         }
 
-        public Task<UserResponse> DeleteUser(int userId)
+        public async Task<UserResponse> UpdateUser(int userId, UserRequest user)
         {
-            throw new NotImplementedException();
-        }
+            Users userData = new Users(userId, user);
 
-        public Task<UserResponse> RetrieveUser(int userId)
-        {
-            throw new NotImplementedException();
-        }
+            var result = await _userRepository.UpdateUser(userData);
 
-        public Task<UserResponse> UpdateUser(int userId, UserRequest user)
-        {
-            throw new NotImplementedException();
+            if (!result)
+                return UserResponseErrors.UserNotFound;
+
+            return new UserResponse(HttpStatusCode.OK, $"Dados do usuário {user.Name} foram alterados com sucesso.");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Oberserver.Presentation.Models.Responses;
+﻿using Oberserver.Constants;
+using Oberserver.Presentation.Models.Responses;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -19,11 +20,40 @@ namespace Oberserver.Presentation.Models.Requests
             this.Password = Password;
         }
 
+        /// <summary>
+        /// User first name.
+        /// </summary>
+        /// <example>Jhon</example>
         public string Name { get; }
+
+        /// <summary>
+        /// User last name.
+        /// </summary>
+        /// <example>Blevers</example>
         public string LastName { get; }
+
+        /// <summary>
+        /// User birthdate.
+        /// </summary>
+        /// <example>2000-05-12</example>
         public DateTime Birthdate { get; }
+
+        /// <summary>
+        /// User identification document.
+        /// </summary>
+        /// <example>12345678912</example>
         public string Document { get; }
+
+        /// <summary>
+        /// User login.
+        /// </summary>
+        /// <example>mycustomlogin</example>
         public string Login { get; }
+
+        /// <summary>
+        /// User password.
+        /// </summary>
+        /// <example>123!@Best</example>
         public string Password { get; }
 
         /// <summary>
@@ -33,24 +63,24 @@ namespace Oberserver.Presentation.Models.Requests
         public UserResponse IsValid()
         {
             if (Name is null || Name.Equals(string.Empty))
-                return new UserResponse(HttpStatusCode.BadRequest, "Informe um nome válido para o usuário.");
+                return UserResponseErrors.UserValidationErrorMessage("Informe um nome válido para o usuário.");
             
             if (LastName is null || LastName.Equals(string.Empty))
-                return new UserResponse(HttpStatusCode.BadRequest, "Informe um sobrenome válido para o usuário.");
+                return UserResponseErrors.UserValidationErrorMessage("Informe um sobrenome válido para o usuário.");
 
             if (Birthdate > DateTime.Now.AddYears(-18) || Birthdate < DateTime.Now.AddYears(-100))
-                return new UserResponse(HttpStatusCode.BadRequest, "Informe uma data de nascimento válida para o usuário.");
+                return UserResponseErrors.UserValidationErrorMessage("Informe uma data de nascimento válida para o usuário.");
 
             if (string.IsNullOrEmpty(Login) || Login.Length < 4)
-                return new UserResponse(HttpStatusCode.BadRequest, "Login precisa conter ao menos 5 dígitos para o usuário.");
+                return UserResponseErrors.UserValidationErrorMessage("Login precisa conter ao menos 5 dígitos para o usuário.");
 
             if (string.IsNullOrEmpty(Login) || Login.Length < 4)
-                return new UserResponse(HttpStatusCode.BadRequest, "Login precisa conter ao menos 5 dígitos para o usuário.");
+                return UserResponseErrors.UserValidationErrorMessage("Login precisa conter ao menos 5 dígitos para o usuário.");
 
             var regex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
             
             if (string.IsNullOrEmpty(Password) || Password.Length < 4 && (regex.IsMatch(Password)))
-                return new UserResponse(HttpStatusCode.BadRequest, "Login precisa conter ao menos 5 dígitos para o usuário.");
+                return UserResponseErrors.UserValidationErrorMessage("Login precisa conter ao menos 5 dígitos para o usuário.");
 
             return new UserResponse(HttpStatusCode.Continue);
         }

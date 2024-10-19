@@ -5,7 +5,7 @@ namespace Oberserver.Data.Entities
     /// <summary>
     /// Class of data for table User into database.
     /// </summary>
-    public class Users
+    public record Users
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
@@ -17,12 +17,35 @@ namespace Oberserver.Data.Entities
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
+        public Users()
+        {
+            
+        }
+
         /// <summary>
         /// UserData Constructor for use when a new user will be inserte into database.
         /// </summary>
         /// <param name="request">Object UserRequest who become from requester.</param>
         public Users(UserRequest request)
         {
+            Name = request.Name;
+            LastName = request.LastName;
+            Birthdate = request.Birthdate;
+            Document = request.Document;
+            Login = request.Login;
+            Password = request.Password;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
+
+        /// <summary>
+        /// UserData Constructor for use when neet to edit an user data into database.
+        /// </summary>
+        /// <param name="userId">User identification.</param>
+        /// <param name="request">Object UserRequest who become from requester.</param>
+        public Users(int userId, UserRequest request)
+        {
+            Id = userId;
             Name = request.Name;
             LastName = request.LastName;
             Birthdate = request.Birthdate;

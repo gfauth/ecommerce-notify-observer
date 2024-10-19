@@ -25,14 +25,14 @@ namespace Oberserver.Data.Context
         /// <summary>
         /// Close and dispose connection after use.
         /// </summary>
-        public new void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             if (_connection is not null)
             {
                 if (_connection.State.Equals(ConnectionState.Open))
-                    _connection.Close();
+                    await _connection.CloseAsync();
 
-                _connection.Dispose();
+                await _connection.DisposeAsync();
             }
         }
 
