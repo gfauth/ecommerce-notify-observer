@@ -54,7 +54,7 @@ namespace ObserverTest
             // Arrange
             var userServiceMock = new Mock<IUserServices>();
             var singleLogMock = new Mock<ISingleLog<LogModel>>();
-            
+
             var userRequest = FakeData.UsefulUserRequest();
 
             userServiceMock.Setup(mock => mock.CreateUser(It.IsAny<UserRequest>()))
@@ -270,7 +270,7 @@ namespace ObserverTest
 
             // Assert
             var values = (UserResponse)((Microsoft.AspNetCore.Mvc.ObjectResult)result.Result!).Value!;
-            
+
             Assert.NotNull(values);
             Assert.Equal("Informe um 'userId' válido para a requisição.", values.Details);
             Assert.Equal(HttpStatusCode.BadRequest, values.ResponseCode);
