@@ -16,37 +16,42 @@ namespace Observer.Presentation.Models.Responses
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
-        /// <summary>
-        /// Constructor for user data response envelope.
-        /// </summary>
-        /// <param name="user">Object Users.</param>
-        public UsersEnvelope(Users user)
+        public UsersEnvelope()
         {
-            Id = user.Id;
-            Name = user.Name;
-            LastName = user.LastName;
-            Birthdate = user.Birthdate;
-            Document = user.Document;
-            Login = user.Login;
-            CreatedAt = user.CreatedAt;
-            UpdatedAt = user.UpdatedAt;
+            
         }
 
-        /// <summary>
-        /// Constructor for user data response envelope with id before creation.
-        /// </summary>
-        /// <param name="user">Object Users.</param>
-        /// <param name="userId">New user identification.</param>
-        public UsersEnvelope(int userId, Users user)
-        {
-            Id = userId;
-            Name = user.Name;
-            LastName = user.LastName;
-            Birthdate = user.Birthdate;
-            Document = user.Document;
-            Login = user.Login;
-            CreatedAt = user.CreatedAt;
-            UpdatedAt = user.UpdatedAt;
-        }
+        ///// <summary>
+        ///// Constructor for user data response envelope.
+        ///// </summary>
+        ///// <param name="user">Object Users.</param>
+        //public UsersEnvelope(Users user)
+        //{
+        //    Id = user.Id;
+        //    Name = user.Name;
+        //    LastName = user.LastName;
+        //    Birthdate = user.Birthdate;
+        //    Document = user.Document;
+        //    Login = user.Login;
+        //    CreatedAt = user.CreatedAt;
+        //    UpdatedAt = user.UpdatedAt;
+        //}
+
+        ///// <summary>
+        ///// Constructor for user data response envelope with id before creation.
+        ///// </summary>
+        ///// <param name="user">Object Users.</param>
+        ///// <param name="userId">New user identification.</param>
+        //public UsersEnvelope(int userId, Users user)
+        //{
+        //    Id = userId;
+        //    Name = user.Name;
+        //    LastName = user.LastName;
+        //    Birthdate = user.Birthdate;
+        //    Document = user.Document;
+        //    Login = user.Login;
+        //    CreatedAt = user.CreatedAt;
+        //    UpdatedAt = user.UpdatedAt;
+        //}
     }
 }

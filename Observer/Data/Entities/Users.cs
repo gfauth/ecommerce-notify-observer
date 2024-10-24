@@ -39,6 +39,24 @@ namespace Observer.Data.Entities
         }
 
         /// <summary>
+        /// UserData Constructor for use when neet to edit an user data into database but using a self object based.
+        /// </summary>
+        /// <param name="userId">User identification.</param>
+        /// <param name="request">Object UserRequest who become from requester.</param>
+        public Users(int userId, Users request)
+        {
+            Id = userId;
+            Name = request.Name;
+            LastName = request.LastName;
+            Birthdate = request.Birthdate;
+            Document = request.Document;
+            Login = request.Login;
+            Password = request.Password;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
+
+        /// <summary>
         /// UserData Constructor for use when neet to edit an user data into database.
         /// </summary>
         /// <param name="userId">User identification.</param>

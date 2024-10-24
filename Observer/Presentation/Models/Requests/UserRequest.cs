@@ -1,4 +1,4 @@
-﻿using Observer.Constants;
+﻿using Observer.Presentation.Errors;
 using Observer.Presentation.Models.Responses;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -60,7 +60,7 @@ namespace Observer.Presentation.Models.Requests
         /// Validate User data and return a object record for return to requester.
         /// </summary>
         /// <returns>Record UserResponse.</returns>
-        public UserResponse IsValid()
+        public ResponseEnvelope IsValid()
         {
             if (Name is null || Name.Equals(string.Empty) || Name.Length <= 2)
                 return UserResponseErrors.UserValidationErrorMessage("Informe um nome válido para o usuário.");
@@ -79,7 +79,7 @@ namespace Observer.Presentation.Models.Requests
             if (string.IsNullOrEmpty(Password) || Password.Length < 8 && !regex.IsMatch(Password))
                 return UserResponseErrors.UserValidationErrorMessage("Password precisa conter ao menos 8 dígitos para o usuário.");
 
-            return new UserResponse(HttpStatusCode.Continue);
+            return new ResponseEnvelope(HttpStatusCode.Continue);
         }
     }
 }

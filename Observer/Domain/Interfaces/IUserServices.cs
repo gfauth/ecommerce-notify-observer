@@ -1,13 +1,14 @@
-﻿using Observer.Presentation.Models.Requests;
+﻿using Observer.Domain.ResponsesEnvelope;
+using Observer.Presentation.Models.Requests;
 using Observer.Presentation.Models.Responses;
 
 namespace Observer.Domain.Interfaces
 {
     public interface IUserServices
     {
-        public Task<UserResponse> RetrieveUser(int userId);
-        public Task<UserResponse> CreateUser(UserRequest user);
-        public Task<UserResponse> UpdateUser(int userId, UserRequest user);
-        public Task<UserResponse> DeleteUser(int userId);
+        public Task<IResponse<ResponseEnvelope>> RetrieveUser(int userId);
+        public Task<IResponse<ResponseEnvelope>> CreateUser(UserRequest user);
+        public Task<IResponse<ResponseEnvelope>> UpdateUser(int userId, UserRequest user);
+        public Task<IResponse<ResponseEnvelope>> DeleteUser(int userId);
     }
 }

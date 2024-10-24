@@ -5,7 +5,7 @@ namespace Observer.Presentation.Models.Responses
     /// <summary>
     /// Response record for use on UserController.
     /// </summary>
-    public record UserResponse
+    public record ResponseEnvelope
     {
         /// <summary>
         /// HttpStatusCode who represent the request response and error code.
@@ -22,7 +22,7 @@ namespace Observer.Presentation.Models.Responses
         /// <summary>
         /// Requested data will be return here.
         /// </summary>
-        public UsersEnvelope? Data { get; }
+        public object? Data { get; }
 
         /// <summary>
         /// Constructor with 3 arguments.
@@ -30,7 +30,7 @@ namespace Observer.Presentation.Models.Responses
         /// <param name="responseCode">HttpStatusCode value.</param>
         /// <param name="details">Text with details.</param>
         /// <param name="data">Object who be requested.</param>
-        public UserResponse(HttpStatusCode responseCode, string details, UsersEnvelope data)
+        public ResponseEnvelope(HttpStatusCode responseCode, string details, object data)
         {
             ResponseCode = responseCode;
             Details = details;
@@ -42,7 +42,7 @@ namespace Observer.Presentation.Models.Responses
         /// </summary>
         /// <param name="responseCode">HttpStatusCode value.</param>
         /// <param name="details">Text with details.</param>
-        public UserResponse(HttpStatusCode responseCode, string details)
+        public ResponseEnvelope(HttpStatusCode responseCode, string details)
         {
             ResponseCode = responseCode;
             Details = details;
@@ -52,7 +52,7 @@ namespace Observer.Presentation.Models.Responses
         /// Constructor with 1 arguments.
         /// </summary>
         /// <param name="responseCode">HttpStatusCode value.</param>
-        public UserResponse(HttpStatusCode responseCode)
+        public ResponseEnvelope(HttpStatusCode responseCode)
         {
             ResponseCode = responseCode;
         }
